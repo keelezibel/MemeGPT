@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  app:
+    image: borda/docker_python-opencv-ffmpeg
+    volumes:
+      - ./src:/app/src
+      - ./models:/models
+      - ./assets:/assets
+      - ./outputs:/app/outputs
+      - ./requirements.txt:/app/requirements.txt
+    tty: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+    shm_size: '8gb'
